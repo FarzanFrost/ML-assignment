@@ -17,6 +17,7 @@ from sklearn.model_selection import train_test_split
 
 xTrain , xTest , yTrain , yTest = train_test_split( x , y )
 
+#Training linear regression model
 from sklearn.linear_model import LinearRegression
 
 dataModel = LinearRegression().fit( xTrain , yTrain )

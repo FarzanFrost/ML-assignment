@@ -2,7 +2,7 @@ import pandas as pd
 
 #Gathering data
 
-location = "D:\\UCSC\\3rd year\\1st sem\\1. MLNC\\2. Assigment\\19001444\\data\\regression\\Concrete_Data.xls"
+location = "D:\\UCSC\\3rd year\\1st sem\\1. MLNC\\2. Assigment\\19001444\\data\\Linear Regression\\Concrete_Data.xls"
 data = pd.read_excel( location )
 
 #Data preprocessing is not required as all the attributes have real/integer values

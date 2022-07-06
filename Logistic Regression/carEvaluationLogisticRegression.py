@@ -1,7 +1,7 @@
 import pandas as pd
 
 #Gathering data
-location = "D:\\UCSC\\3rd year\\1st sem\\1. MLNC\\2. Assigment\\19001444\\data\\classification\\car.data"
+location = "D:\\UCSC\\3rd year\\1st sem\\1. MLNC\\2. Assigment\\19001444\\data\\Logistic Regression\\car.data"
 data = pd.read_csv( location )
 
 #Preprocessing data

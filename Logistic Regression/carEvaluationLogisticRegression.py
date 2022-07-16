@@ -6,7 +6,16 @@ data = pd.read_csv( location )
 
 #Preprocessing data
 
-data[ 'Evaluation' ] = data[ 'Evaluation' ].eq( 'acc' ).astype( int )
+EvaluationClassification = {
+    
+    'unacc' : 0 ,
+    'good' : 1 ,
+    'vgood' : 2 ,
+    'acc' : 3
+    
+    }
+
+data[ 'Evaluation' ] = data[ 'Evaluation' ].apply( lambda id : EvaluationClassification[ id ] )
 
 buyingAndmaintenanceClassification = {
     
@@ -75,7 +84,7 @@ xTrain , xTest , yTrain , yTest = train_test_split( x , y )
 #Training Logistic regression Model
 from sklearn.linear_model import SGDClassifier
 
-dataModel = SGDClassifier( max_iter = 5000 ).fit( xTrain , yTrain )
+dataModel = SGDClassifier().fit( xTrain , yTrain )
 
 #Predicting classes ( classification )
 categorizedResults = dataModel.predict( xTest )

@@ -10,7 +10,9 @@ data = pd.read_excel( location )
 x = data.iloc[ : , : 8 ]
 y = data.iloc[ : , 8 ]
 
-
+from sklearn.preprocessing import scale
+x = scale( x )
+y = scale( y )
 #seperating train and test data
 
 from sklearn.model_selection import train_test_split
@@ -18,14 +20,18 @@ from sklearn.model_selection import train_test_split
 xTrain , xTest , yTrain , yTest = train_test_split( x , y )
 
 #Training linear regression model
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import SGDRegressor
 
-dataModel = LinearRegression().fit( xTrain , yTrain )
+dataModel = SGDRegressor( max_iter = 5000 ).fit( xTrain , yTrain )
 
 #Making prediction for test data set
 predictedResults = dataModel.predict( xTest )
 
 #Testing accuracy
-from sklearn.metrics import mean_absolute_error
-meanAbsoluteError = mean_absolute_error( yTest , predictedResults )
-print( meanAbsoluteError )
+
+meanAccuracy = dataModel.score( xTest , yTest )
+print( meanAccuracy * 100 )
+
+from sklearn.metrics import mean_squared_error
+meanSquaredError = mean_squared_error( yTest , predictedResults )
+print( meanSquaredError** (0.5) )

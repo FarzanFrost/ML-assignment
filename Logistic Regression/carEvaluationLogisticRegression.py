@@ -66,7 +66,6 @@ data[ 'safety' ] = data[ 'safety' ].apply( lambda id : safetyClassification[ id 
 x = data.iloc[ : , : 6 ]
 y = data.iloc[ : , 6 ]
 
-
 #seperating train and test data
 
 from sklearn.model_selection import train_test_split
@@ -74,9 +73,9 @@ from sklearn.model_selection import train_test_split
 xTrain , xTest , yTrain , yTest = train_test_split( x , y )
 
 #Training Logistic regression Model
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import SGDClassifier
 
-dataModel = LogisticRegression().fit( xTrain , yTrain )
+dataModel = SGDClassifier( max_iter = 500 ).fit( xTrain , yTrain )
 
 #Predicting classes ( classification )
 categorizedResults = dataModel.predict( xTest )
@@ -84,3 +83,9 @@ categorizedResults = dataModel.predict( xTest )
 #Testing accuracy
 meanAccuracy = dataModel.score( xTest , yTest )
 print( meanAccuracy )
+
+
+#Generating classification report
+from sklearn.metrics import classification_report
+classificationReport = classification_report( yTest , categorizedResults )
+print( classificationReport )

@@ -75,17 +75,18 @@ xTrain , xTest , yTrain , yTest = train_test_split( x , y )
 #Training Logistic regression Model
 from sklearn.linear_model import SGDClassifier
 
-dataModel = SGDClassifier( max_iter = 500 ).fit( xTrain , yTrain )
+dataModel = SGDClassifier( max_iter = 5000 ).fit( xTrain , yTrain )
 
 #Predicting classes ( classification )
 categorizedResults = dataModel.predict( xTest )
 
 #Testing accuracy
 meanAccuracy = dataModel.score( xTest , yTest )
-print( meanAccuracy )
+print( "Accuracy : " , meanAccuracy * 100 , " %" )
 
 
 #Generating classification report
 from sklearn.metrics import classification_report
 classificationReport = classification_report( yTest , categorizedResults )
+print( "Classifier report : " )
 print( classificationReport )

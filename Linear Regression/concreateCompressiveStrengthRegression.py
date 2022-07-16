@@ -10,9 +10,10 @@ data = pd.read_excel( location )
 x = data.iloc[ : , : 8 ]
 y = data.iloc[ : , 8 ]
 
-from sklearn.preprocessing import scale
-x = scale( x )
-y = scale( y )
+# from sklearn.preprocessing import scale
+# x = scale( x )
+# y = scale( y )
+
 #seperating train and test data
 
 from sklearn.model_selection import train_test_split
@@ -21,17 +22,31 @@ xTrain , xTest , yTrain , yTest = train_test_split( x , y )
 
 #Training linear regression model
 from sklearn.linear_model import SGDRegressor
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 
-dataModel = SGDRegressor( max_iter = 5000 ).fit( xTrain , yTrain )
+dataModel = make_pipeline( StandardScaler() , SGDRegressor( alpha = 0.0001 ) ).fit( xTrain , yTrain )
 
 #Making prediction for test data set
 predictedResults = dataModel.predict( xTest )
 
 #Testing accuracy
-
 meanAccuracy = dataModel.score( xTest , yTest )
-print( meanAccuracy * 100 )
-
+print( "Accuracy : " , meanAccuracy * 100 )
+     
+#Calculating mean squared error
 from sklearn.metrics import mean_squared_error
 meanSquaredError = mean_squared_error( yTest , predictedResults )
-print( meanSquaredError** (0.5) )
+print( "Root mean squared error : " , meanSquaredError** ( 0.5 )  )
+
+import matplotlib.pyplot as plt
+
+xAxis = range( len( yTest ) )
+plt.plot( xAxis , yTest , label="Original Data" )
+plt.plot( xAxis , predictedResults , label="Predicted Data" )
+plt.title( "Concrete compressive strength and predicted data" )
+plt.xlabel( 'x-axis' )
+plt.ylabel( 'y-axis' )
+plt.legend( loc = 'best', fancybox = True , shadow = True )
+plt.grid( True )
+plt.show()
